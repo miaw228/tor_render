@@ -5,7 +5,7 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 RUN mkdir -p /app /var/lib/tor/hidden_service /var/log/tor
-RUN echo "<h1>Hello from Tor Hidden Service!</h1>" > /app/index.html
+COPY app/ /app/
 WORKDIR /app
 
 EXPOSE 80 9050 9051
