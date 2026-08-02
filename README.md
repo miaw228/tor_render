@@ -4,7 +4,8 @@ A simple web page hosted as a Tor hidden service built with Docker and deployed 
 
 Live at:
 - Tor: `http://xab56hijghdnn3b6raksgxr5644zi53zadxlwijzozh6mwje3rfefpyd.onion`
-
+![front](/images/front.png)
+![front2](/images/front2.png)
 ![demo](/images/demo.png)
 
 ## what it does
@@ -55,12 +56,12 @@ Open Tor Browser, paste the .onion address
    base64 -w0 hidden_service_keys/hostname > hostname.b64
    base64 -w0 hidden_service_keys/hs_ed25519_secret_key > secret_key.b64
    base64 -w0 hidden_service_keys/hs_ed25519_public_key > public_key.b64
-   ```
+```
  In Render → your service → Environment → Secret Files, add three files (filename only)
    - `hostname.b64`
    - `secret_key.b64`
    - `public_key.b64`
-   ```
+
 
 ## Deploy on Render
 
