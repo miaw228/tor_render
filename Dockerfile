@@ -1,22 +1,21 @@
-FROM python:3.11-slim
+FROM nginx:alpine
 
-RUN apt-get update && \
-    apt-get install -y tor && \
-    rm -rf /var/lib/apt/lists/*
+RUN apk add --no-cache tor bash
 
-RUN mkdir -p /app /var/lib/tor/hidden_service /var/log/tor
-COPY app/ /app/
-WORKDIR /app
+RUN mkdir -p /var/lib/tor/hidden_service /var/log/tor /usr/share/nginx/html
+COPY app/ /usr/share/nginx/html/
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 
-EXPOSE 80 9050 9051
-
-#COPY hidden_service_keys/ /var/lib/tor/hidden_service/
 RUN chmod 700 /var/lib/tor/hidden_service && \
     chown -R root:root /var/lib/tor/hidden_service
+
+#COPY hidden_service_keys/ /var/lib/tor/hidden_service/
 
 COPY torrc /etc/tor/torrc
 
 COPY start.sh /start.sh
 RUN chmod +x /start.sh
+
+EXPOSE 80
 
 CMD ["/start.sh"]
