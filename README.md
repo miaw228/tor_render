@@ -10,9 +10,9 @@ Live at:
 
 ## what it does
 
-Well ,it runs a small web server inside a Docker container (Python's built-in `http.server` here, but this could just as easily be Apache or Nginx if you want something more prod like) and runs Tor alongside it, pointing the hidden service at that same port. Anyone with Tor Browser can reach the `.onion` address.
+It runs Nginx inside a Docker container and Tor alongside it, pointing the hidden service at the same port. Anyone with Tor Browser can reach the `.onion` address. Previously used Python's built-in `http.server` but switched to Nginx for proper security headers, no directory listing, and better handling.
 
-## how itworks under the hood 
+## how it works under the hood
 Tor connected to directory authorities, downloaded the consensus, and bootstrapped to 100% — all outbound TCP from inside Render's network. That succeeded, meaning Render doesn't block this kind of outbound traffic.
 
 ## setup (baking keys into the image)
