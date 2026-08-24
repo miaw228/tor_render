@@ -16,6 +16,9 @@ COPY torrc /etc/tor/torrc
 COPY start.sh /start.sh
 RUN chmod +x /start.sh
 
+HEALTHCHECK --interval=30s --timeout=5s --start-period=120s --retries=3 \
+    CMD wget -qO- http://localhost/health || exit 1
+
 EXPOSE 80
 
 CMD ["/start.sh"]

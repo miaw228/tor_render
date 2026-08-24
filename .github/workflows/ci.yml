@@ -1,0 +1,23 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build Docker image
+        run: docker build -t tor-website .
+
+      - name: Test health endpoint
+        run: |
+          docker run -d --name test-container -p 8080:80 tor-website
+          sleep 130
+          curl -sf http://localhost:8080/health || exit 1
+          docker stop test-container
